@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import Spinner from './Spinner'
 
-export default class Resume extends Component {
+export default class Splash extends Component {
   constructor(props) {
     super(props)
     // this.state={}
@@ -9,7 +10,10 @@ export default class Resume extends Component {
   }
   render() {
     return (
-      <div className='resume-main'>
+      <div className='splash'>
+        <Spinner className='spinner-L'/>
+        <div className='splash-initials'> WM </div>
+        <Spinner className='spinner-R'/>
       </div>
     )
   }

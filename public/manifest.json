@@ -1,4 +1,11 @@
 {
   "short_name": "Will Meier",
-  "name": "Will Meier Portfolio"
+  "name": "Will Meier Portfolio",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
 }

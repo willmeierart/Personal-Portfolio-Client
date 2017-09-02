@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import Logo from './Core/Logo'
 
-
-export default class Writing extends Component {
+export default class Process extends Component {
   constructor(props) {
     super(props)
     // this.state={}
@@ -11,9 +10,9 @@ export default class Writing extends Component {
   }
   render() {
     return (
-      <div className='writing-main'>
+      <div className='process'>
         <br/>
-        <div style={{width:'100%',textAlign:'center'}}>UNDER CONSTRUCTION... for now: <a href="https://medium.com/@willmeierart"><strong>you can read all my recent published writing on Medium</strong></a></div>
+        <div style={{width:'100%',textAlign:'center'}}>UNDER CONSTRUCTION...</div>
         <br/>
         <Logo/>
       </div>
