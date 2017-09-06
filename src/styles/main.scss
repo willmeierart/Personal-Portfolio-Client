@@ -1,3 +1,23 @@
+
+
+//// FONTS ////
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,400,700,900');
+
+$font-fallback: Helvetica, sans-serif;
+$font-title: 'Raleway', sans-serif;
+
+//// COLORS ////
+
+$black: rgb(20,20,20);
+$grey-1: rgb(200,200,200);
+$color-accent: orange;
+
+//// MIXINS ////
+
+
+
+
+
 *{
   // border:1px dotted skyblue;
   // background-color: rgba(230,200,200,1);
@@ -17,8 +37,72 @@
     width:50px;
     height:50px;
   }
+  //// BIO ////
+  .bio{
+    margin-top:5vh;
+    display: relative;
+    display:grid;
+    grid-template-columns:1fr 60% 1fr;
+    &-text{
+      position:relative;
+      grid-column:2/3;
+      // -webkit-text-fill-color:transparent;
+      // -webkit-background-clip:text;
+      color:rgb(100,150,250);
+      background-clip:text;
+      background-image:url('./images/bio_headshot.jpg');
+      background-position:50% 50%;
+      background-size:cover;
+      // background-blend-mode: screen;
+      text-align:justify;
+      // font-weight: 900;
+      font-weight: 500;
+      text-shadow: 0 0 10px darkred;
+      font-size:1.5em;
+      // line-height:.8em;
+      padding:1em;
+      border:4px solid red;
+      border-radius:4px;
+      & *:hover{
+        -webkit-text-fill-color:black;
+        -webkit-background-clip:none;
+      }
+    }
+    .backsplash{
+      position:absolute;
+      z-index:-1;
+      grid-column:2/3;
+      margin:-1em;
+      width:100%;
+      height:100%;
+      background-image:url('./images/bio_headshot.jpg');
+      background-image:url('./images/bio_headshot.jpg');
+      background-position:50% 50%;
+      background-size:cover;
+      opacity:.5;
+    }
+  }
 }
+
 @media (max-width:699px){
+  //// BIO ////
+
+  .bio{
+    margin-top:5vh;
+    display: relative;
+    display:grid;
+    grid-template-columns:1fr 80% 1fr;
+    &-text{
+      position:relative;
+      grid-column:2/3;
+      text-align:justify;
+      padding:1em;
+      border:2px solid red;
+      border-radius:4px;
+    }
+  }
+
+
   .responsive-wrapper{
     flex-direction:column;
   }
@@ -39,22 +123,6 @@
   }
 }
 
-//// FONTS ////
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,400');
-
-$font-fallback: Helvetica, sans-serif;
-$font-title: 'Raleway', sans-serif;
-
-//// COLORS ////
-
-$black: rgb(20,20,20);
-$grey-1: rgb(200,200,200);
-$color-accent: orange;
-
-//// MIXINS ////
-
-
-
 //// UNIVERSAL ////
 
 .responsive-wrapper{
@@ -70,6 +138,8 @@ a{
   }
 }
 
+html{width:100vw;}
+
 body{
   font-family: $font-title;
   a{
@@ -79,7 +149,7 @@ body{
 }
 .main-body{
   display: grid;
-  grid-template-columns: 1fr 40px;
+  grid-template-columns: 1fr;
 }
 header{
   display:grid;
@@ -106,7 +176,7 @@ header{
     color:$black;
   }
   hr{
-    width:110%;
+    width:100%;
     height:1px;
     background-color:$grey-1;
     border:none;
@@ -152,7 +222,7 @@ header{
     display: inline-block;
     display: flex;
     flex-wrap:nowrap;
-    width:500px;
+    // width:500px;
     color:white;
   }
   .icons-container{
@@ -185,7 +255,7 @@ header{
 main{
   height:100%;
   grid-column:1/2;
-  margin:0 auto;
+  // margin:0 auto;
 }
 h1{
   font-family:$font-title;
@@ -209,27 +279,27 @@ footer{
   }
 }
 
-@keyframes fade{
-  0%{opacity:1;}
-  50%{opacity:.25;}
-}
-@keyframes rotate{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-@keyframes fade-in{
-  0%{opacity:0;}
-  100%{opacity:1;}
-}
-
 .splash{
+  @keyframes fade{
+    0%{opacity:1;}
+    50%{opacity:.25;}
+  }
+  @keyframes rotate{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+  }
+  @keyframes fade-in{
+    0%{opacity:0;}
+    100%{opacity:1;}
+  }
   position:relative;
   display:flex;
+  align-self:center;
   // position:relative;
   justify-content:center;
   align-items:center;
   width:75vw;
-  height:50vh;
+  height:80vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: "proxima-nova-soft", sans-serif;
@@ -409,9 +479,21 @@ footer{
 //// ART ////
 
 .art-main{
-  iframe{
-    border:none;
-    width:90vw;
-    height:75vh;
+  margin-top:5vh;
+  width:calc(100vw - 50px);
+  height:100%;
+  border-radius:20px;
+  .thumbs-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(2,1fr);
+    .thumbnail{
+      overflow: hidden;
+      display: flex;
+      flex:0;
+      justify-content: center;
+      align-items: center;
+      height:33vw;
+    }
   }
 }

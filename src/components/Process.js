@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Logo from './Core/Logo'
+import Splash from './Core/Splash'
 
 export default class Process extends Component {
   constructor(props) {
@@ -11,10 +12,11 @@ export default class Process extends Component {
   render() {
     return (
       <div className='process'>
-        <br/>
+        {/*<br/>*/}
         <div style={{width:'100%',textAlign:'center'}}>UNDER CONSTRUCTION...</div>
-        <br/>
-        <Logo/>
+        {/*<br/>
+        <Logo/>*/}
+        <Splash/>
       </div>
     )
   }

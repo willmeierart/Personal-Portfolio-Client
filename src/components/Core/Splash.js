@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Spinner from './Spinner'
 
 export default class Splash extends Component {
@@ -10,11 +11,11 @@ export default class Splash extends Component {
   }
   render() {
     return (
-      <div className='splash'>
+      <Link to='/tech' className='splash'>
         <Spinner className='spinner-L'/>
         <div className='splash-initials'> WM </div>
         <Spinner className='spinner-R'/>
-      </div>
+      </Link>
     )
   }
 }
