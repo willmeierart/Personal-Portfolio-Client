@@ -10,14 +10,24 @@ import react from '../styles/images/react.png'
 import opengl from '../styles/images/opengl.png'
 import jade from '../styles/images/jade.png'
 import canvas from '../styles/images/canvas.png'
+import sass from '../styles/images/sass.png'
+
 
 
 const techprojects = [
   {
+    title:'.this',
+    description:'whoa...meta...',
+    technologies:[react, sass],
+    url:'https://willmeier.cool/tech',
+    github:'https://github.com/willmeierart/Personal-Portfolio-Client',
+    images:[]
+  },
+  {
     title:'Clyfford Still Museum Kiosks',
     description:'A custom video-player web-app interface developed for in-gallery touchscreen kiosks at the Clyfford Still Museum. Built with React/Redux, implementing several animation libraries and a browser-cached data store, with a Node backend proxy/database. Contracted during July-August 2017 during Quarter 3 of Galvanize Web Development Immersive.',
     technologies:[react,redux,javascript,node,postgres],
-    url:'http://video.clyffordstillmuseum.org/kiosk/',
+    url:'http://video.clyffordstillmuseum.org/kiosk/#/admin',
     github:'https://github.com/willmeierart/CSM-KIOSKS-public',
     images:['https://s3-us-west-1.amazonaws.com/will-meier-tech-screenshots/CSMkiosks1.jpg', 'https://s3-us-west-1.amazonaws.com/will-meier-tech-screenshots/CSMkiosks2.jpg', 'https://s3-us-west-1.amazonaws.com/will-meier-tech-screenshots/CSMkiosks3.jpg', 'https://s3-us-west-1.amazonaws.com/will-meier-tech-screenshots/CSMkiosks4.jpg', 'https://s3-us-west-1.amazonaws.com/will-meier-tech-screenshots/CSMkiosks5.jpg']
   },

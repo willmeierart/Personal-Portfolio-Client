@@ -33,7 +33,6 @@ export default class App extends Component {
           {this.state.resumeOpen && <Resume/>}
           <main>
             <RouteTransition
-                // style={{position:'absolute', bottom:0, left:0, width:'100vw',height:'calc(100vh - 2.6041666667vw)'}}
                 pathname={location.pathname}
                 atEnter={{ opacity: 0}}
                 atLeave={{ opacity: spring(0,{stiffness:300,damping:40})}}

@@ -21,14 +21,17 @@ export default class Screen extends Component {
     },4000)
   }
   render() {
-    let {url} = this.props
-    const safeURL = url == 'http://video.clyffordstillmuseum.org/kiosk/' ? 'https://csm-react-kiosk-demo.firebaseapp.com/kiosk' : url
+    const {url} = this.props
+    const {length} = this.props.images
+    const backdrop = length == 0 ? 'white' : 'black'
+    // const safeURL = url == 'http://video.clyffordstillmuseum.org/kiosk/' ? 'https://csm-react-kiosk-demo.firebaseapp.com/kiosk' : url
     return (
       <div className='screen'>
         <container>
           <div className='outer'>
             <div className='inner'>
-              {/*<iframe className='iframe' src={safeURL} frameBorder='0'/>*/}
+              {length == 0 ?
+              <iframe className='iframe' src={url} frameBorder='0' style={{zIndex:3}} scrolling='no'/> :
               <ReactCSSTransitionReplace
                 component='div'
                 style={{width:'100%',height:'100%',zIndex:3}}
@@ -39,8 +42,8 @@ export default class Screen extends Component {
                 <div key={this.state.currentSRC} className='screen-image-container'>
                   <img  className='screen-image' src={this.state.currentSRC}/>
                 </div>
-              </ReactCSSTransitionReplace>
-              <div style={{position:'absolute',height:'100%',width:'100%',background:'black',zIndex:2}}/>
+              </ReactCSSTransitionReplace> }
+              <div style={{position:'absolute',height:'100%',width:'100%',background:backdrop,zIndex:2}}/>
               </div>
             <div className='url'><a target='_blank' href={url}>{url}</a></div>
           </div>
