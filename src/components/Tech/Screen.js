@@ -7,14 +7,18 @@ export default class Screen extends Component {
     this.state={currentSRC:this.props.images[0]}
     const binder=(Ms)=>{Ms.forEach(m=>this[m]=this[m].bind(this))}
     binder(['carousel'])
+    this.interval = null
   }
   componentDidMount(){
     this.carousel()
   }
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
   carousel(){
     const {images} = this.props
     let i=0
-    return setInterval(()=>{
+    this.interval = setInterval(()=>{
       this.setState({currentSRC:images[i]})
       ++i
       if(i===images.length){i=0}

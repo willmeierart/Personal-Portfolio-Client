@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import {RouteTransition} from 'react-router-transition'
+// import {RouteTransition} from 'react-router-transition'
 import {spring} from 'react-motion'
 import '../styles/animations.css'
 import Header from '../components/Core/Header'
@@ -32,12 +32,12 @@ export default class App extends Component {
             <div><Header/><Sidebar/></div>}
           {this.state.resumeOpen && <Resume/>}
           <main>
-            <RouteTransition
+            {/* <RouteTransition
                 pathname={location.pathname}
                 atEnter={{ opacity: 0}}
                 atLeave={{ opacity: spring(0,{stiffness:300,damping:40})}}
                 atActive={{ opacity: spring(1,{stiffness:300,damping:40})}}
-                mapStyles={styles=>({opacity:styles.opacity})}>
+                mapStyles={style=>({opacity:style.opacity})}> */}
               <Switch key={location.key} location={location}>
                 <Route exact path="/" component={Splash}/>
                 <Route path="/about" component={Bio}/>
@@ -46,7 +46,7 @@ export default class App extends Component {
                 <Route path="/writing" component={Writing}/>
                 <Route path="/process" component={Process}/>
               </Switch>
-            </RouteTransition>
+            {/* </RouteTransition> */}
           </main>
         </div>)}}/>
         </BrowserRouter>

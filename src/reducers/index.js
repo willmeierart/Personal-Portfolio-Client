@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
-import artReducer from './art-reducer'
-import techReducer from './tech-reducer'
-import writingReducer from './writing-reducer'
+import artReducer from './artReducer'
+import techReducer from './techReducer'
+import writingReducer from './writingReducer'
 import persist from './persist'
 
 const rootReducer = combineReducers({
-  // art:artReducer,
+  art:artReducer,
   // tech:techReducer,
   // writing:writingReducer,
   persist:persist

@@ -488,6 +488,14 @@ footer{
   width:calc(100vw - 50px);
   height:100%;
   border-radius:20px;
+  position:relative;
+  .cloud-nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
   .thumbs-container{
     display: grid;
     grid-template-columns: repeat(3,1fr);

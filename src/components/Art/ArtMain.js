@@ -4,6 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import art from '../../data/art'
 import Placeholder from '../Core/Placeholder'
 import Thumbnail from './Thumbnail'
+import CloudNavWrapper from './CloudNavWrapper'
 
 export default class Art extends Component {
   constructor(props) {
@@ -30,14 +31,15 @@ export default class Art extends Component {
       <div className='art-main'>
         {/*<Placeholder/>*/}
         {/*<ScrollLock/>*/}
-          <ReactCSSTransitionGroup
+          <CloudNavWrapper />
+          {/* <ReactCSSTransitionGroup
             component='div'
             className='thumbs-container'
             transitionName="quick-fade"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={500}>
             {this.renderThumbs()}
-          </ReactCSSTransitionGroup>
+          </ReactCSSTransitionGroup> */}
       </div>
     )
   }
