@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setA } from '../../actions'
+import { setActiveItems } from '../../actions'
 import CloudNav from './CloudNavD3'
 
 
@@ -11,49 +11,30 @@ class CloudNavWrapper extends Component {
 
   }
 
-  componentWillMount() {
-
-  }
 
   componentDidMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
-  componentWillUnmount() {
 
   }
 
   render() {
     return (
       <div className='cloud-nav-wrapper'>
-        <CloudNav />
+        <CloudNav {...this.props} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    activeItems: state.art.activeItems
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    onSetActiveItems: item => dispatch(setActiveItems(item))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CloudNavWrapper)

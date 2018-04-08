@@ -16,7 +16,7 @@ const stringify = require('json-stringify-safe')
 class CloudNav extends Component {
   constructor (props) {
     super(props)
-    this.state = { mindmap: 'loading', drag: 'finished' }
+    this.state = { mindmap: 'loading', drag: 'finished', activeItems: flatConcepts }
     const binder=(Ms)=>{Ms.forEach(m=>this[m]=this[m].bind(this))}
     binder(['callRender', 'renderD3'])
   }
@@ -52,6 +52,7 @@ class CloudNav extends Component {
   }
 
   async renderD3 (mindmap) {
+    const that = this
     const svg = await d3.select(mindmap).append('svg')
     const w = typeof window !== 'undefined' ? window.innerWidth : 900
     const h = typeof window !== 'undefined' ? window.innerHeight : 500
@@ -65,7 +66,7 @@ class CloudNav extends Component {
     const labelAnchorLinks = []
     const links = []
 
-    flatConcepts.forEach((concept, i) => {
+    this.state.activeItems.forEach((concept, i) => {
       let node = { label: concept }
       nodes.push(node)
       labelAnchors.push({ node: node })
@@ -92,14 +93,14 @@ class CloudNav extends Component {
       .force('center', d3.forceCenter(w / 2, h / 2))
       .force('link', d3.forceLink(links)
         .id(d => d.index)
-        // .distance(0)
-        // .distance(50)
-        // .strength(x =>  x.weight * 10) 
-        // .strength(x =>  x.weight * 4) 
+        .distance(50)
+        // .distance(100)
+        .strength(x =>  x.weight * 2) 
+        // .strength(x =>  x.weight) 
       )
       .force('charge', d3.forceManyBody()
-        // .strength(-3000)
-        // .strength(-5)
+        .strength(-100)
+        // .strength(0)
       )
       .force('x', d3.forceX(0))
       .force('y', d3.forceY(0))
@@ -112,17 +113,19 @@ class CloudNav extends Component {
       .force('center', d3.forceCenter(w / 2, h / 2))
       .force('link', d3.forceLink(labelAnchorLinks)
         .id(d => d.index)
-        // .distance(0)
+        .distance(0)
         // .strength(2) 
-        // .strength(8)
+        .strength(2)
       )
       .force('charge', d3.forceManyBody()
-        // .strength(-100)
+        .strength(-200)
         // .strength(-1)
       )
       .force('x', d3.forceX(0))
       .force('y', d3.forceY(0))
-      // .force('collision', d3.forceCollide().radius(d => d.radius * 2))
+      // .size([w, h])
+      .force('collision', d3.forceCollide().radius(d => d.radius * 2))
+      .on('tick', ticked)
       
 
     const link = vis
@@ -141,19 +144,16 @@ class CloudNav extends Component {
       .attr('class', 'node')
     node
       .append('svg:circle')
-      .attr('r', 5)
-      .style('fill', '#555')
+      .attr('r', 4)
+      .style('fill', '#e50000')
       .style('stroke', '#FFF')
       .style('stroke-width', 3)
 
 
 
-    
-
-
 
     const anchorLink = vis.selectAll('line.anchorLink').data(labelAnchorLinks) 
-      // .enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999") // comment out for no link to node
+      .enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#dddddd") // comment out for no link to node
 
     const anchorNode = vis
       .selectAll('g.anchorNode')
@@ -167,12 +167,29 @@ class CloudNav extends Component {
       .style('fill', '#FFF')
     anchorNode
       .append('svg:text')
+      .attr('class', 'anchorText')
       .text(function(d, i) {
         return i % 2 == 0 ? '' : d.node.label
       })
       .style('fill', '#555')
       .style('font-family', 'Arial')
+      .style('font-weight', 'bold')
       .style('font-size', 12)
+      .style('cursor', 'pointer')
+    anchorNode
+      .on('click', function (d) {    
+        const thisNode = d3.select(this)
+        const thisNodeText = thisNode._groups[0][0].childNodes[1]
+        console.log(thisNode)
+        thisNodeText.style.setProperty('font-weight', thisNodeText.style.fontWeight === 'bold' ? 'normal' : 'bold')
+        thisNodeText.style.setProperty('fill', thisNodeText.style.fill === '#555' ? '#dbdbdb' : '#555')
+        // that.setActiveItems(thisNodeText.text)
+        that.props.onSetActiveItems(thisNodeText.text)   
+        that.props.animateFauxDOM(800)
+        console.log(that.props)
+      })
+
+
 
     const updateLink = function(link) {
       link.attr('x1', function(d) {
@@ -210,14 +227,19 @@ class CloudNav extends Component {
               ? this.childNodes[1].getBBox()
               : this.childNodes[1].getBoundingClientRect()
 
+            // if (i === 5) console.log(b)
+
             const diffX = d.x - d.node.x
             const diffY = d.y - d.node.y
 
             const dist = Math.sqrt(diffX * diffX + diffY * diffY)
             if (b) {
               let shiftX = b.width * (diffX - dist) / (dist * 2)
+              // let shiftY = b.height * (diffX - dist) / (dist * 2)
+              // console.log(shiftX)
               shiftX = Math.max(-b.width, Math.min(0, shiftX))
-              const shiftY = 5
+              // shiftY = Math.max(-b.height, Math.min(0, shiftX))
+              const shiftY = 2
               this.childNodes[1].setAttribute('transform', 'translate(' + shiftX + ',' + shiftY + ')')
             }
           }
@@ -227,6 +249,8 @@ class CloudNav extends Component {
       anchorNode.call(updateNode)
       link.call(updateLink)
       anchorLink.call(updateLink)
+
+      // labelAnchorLinks.call
     }
 
     // const dragsubject = () => {
@@ -242,10 +266,10 @@ class CloudNav extends Component {
       this.props.animateFauxDOM(800)
     }
 
-    const dragged = d => {
+    const dragging = d => {
       d.fx = currentEvent.sourceEvent.x
       d.fy = currentEvent.sourceEvent.y
-      this.setState({ drag: 'dragging' })  
+      this.setState({ drag: 'dragging' })
       this.props.animateFauxDOM(800)    
     }
 
@@ -260,14 +284,26 @@ class CloudNav extends Component {
 
     node.call(d3.drag()
       .on("start", dragstarted)
-      .on("drag", dragged)
+      .on("drag", dragging)
       .on("end", dragended)
     )
 
-    // return svg.toReact()
+
     this.props.animateFauxDOM(800)
     
   }
+
+  // setActiveItems (newItem) {
+  //   let newState = [...this.state.activeItems]
+  //   const isActive = newState.indexOf(newItem) !== -1
+  //   if (isActive) {
+  //     newState = newState.filter(listItem => listItem !== newItem)
+  //   } else {
+  //     newState.push(newItem)
+  //   }
+  //   this.setState ({ activeItems: newState }, console.log(this.state.activeItems))
+  // }
+
   render () {
     'rendering'
     return (

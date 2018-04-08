@@ -5,6 +5,13 @@ export const FETCH_IMAGE = 'fetch_image'
 export const SELECT_IMAGE = 'select_image'
 export const FETCH_MEDIUM = 'fetch_medium'
 
-export const SET_ACTIVE_TAG_FILTERS = 'set_active_tag_filters'
-export const TOGGLE_WORD = 'TOGGLE_WORD'
+export const SET_ACTIVE_ITEMS = 'set_active_items'
+
+export const setActiveItems = item => {
+  return {
+    type: SET_ACTIVE_ITEMS,
+    payload: item
+  }
+}
+
 
